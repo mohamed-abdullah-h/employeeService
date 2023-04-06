@@ -37,7 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public EmployeeDto getEmployeeById(Long employeeId) {
-		 Employee employee = employeeRepository.findById(employeeId).get();
+		 Employee employee = null;
+		 try {
+			employee = employeeRepository.findById(employeeId).get();
+		} catch (Exception e) {
+			throw new ResourceNotFoundException(e.getMessage());
+		}
 		 /* convert Employee to EmployeeDto using Model Mapper
 		 EmployeeDto empDto = mapper.map(employee, EmployeeDto.class);
 		 */
